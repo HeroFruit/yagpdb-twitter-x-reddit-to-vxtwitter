@@ -1,0 +1,14 @@
+{{/* Trigger Type: Reaction
+Trigger: Add only */}}
+
+{{$reactionEmoji := "❌"}}
+{{$authorID := (joinStr "" .Reaction.UserID)}}
+{{$storedIDRaw := dbGet .ReactionMessage.ID "op"}}
+{{$storedID := $storedIDRaw.Value}}
+ 
+{{if $storedID}}
+  {{if and (eq .Reaction.Emoji.Name $reactionEmoji) (eq $authorID $storedID)}}
+    {{dbDel .ReactionMessage.ID "op"}}
+    {{deleteMessage .ReactionMessage.ChannelID .ReactionMessage.ID}}
+  {{end}}
+{{end}}
