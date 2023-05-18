@@ -1,0 +1,12 @@
+{{/* Trigger Type: Regex
+Trigger: .*[^fvx]twitter.com.* */}}
+
+{{$url := reFind `https?:\/\/(www\.)?twitter\.com\/[a-zA-Z0-9_]+\/(status|)\/\d+` .Message.Content}}
+{{$replacement := reReplace `twitter\.com` $url "fxtwitter.com"}}
+{{$originalContent := reReplace $url .Message.Content $replacement}}
+ 
+{{if $url}}
+  {{deleteTrigger 1}}
+  {{$sentID := sendMessageRetID nil (print "<@" .Message.Author.ID "> posted: " $originalContent)}}
+  {{dbSet $sentID "op" (joinStr "" .Message.Author.ID)}}
+{{end}}
