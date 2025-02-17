@@ -1,6 +1,6 @@
 THIS IS A FORK FROM WOOVIE TO USE VXTWITTER/VXREDDIT
 
-FOLLOWING IS NOT UP-TO-DATE 
+THE FOLLOWING IS NOT UP-TO-DATE 
 
 # yagpdb-twitter-to-fxtwitter
 Reposts user's posts with twitter(dot)com URLs to fxtwitter(dot)com for better embeds, mobile embeds, and overall better media playback performance.
