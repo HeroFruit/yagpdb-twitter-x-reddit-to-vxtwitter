@@ -1,0 +1,12 @@
+{{/* Trigger Type: Regex
+Trigger: .*[^fvx]reddit.com.* */}}
+
+{{$url := reFind `https?:\/\/(www\.)?reddit\.com\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]` .Message.Content}}
+{{$replacement := reReplace `reddit\.com` $url "vxreddit.com"}}
+{{$originalContent := reReplace $url .Message.Content $replacement}}
+ 
+{{if $url}}
+  {{deleteTrigger 1}}
+  {{$sentID := sendMessageRetID nil (print "<@" .Message.Author.ID "> posted: " $originalContent)}}
+  {{dbSet $sentID "op" (joinStr "" .Message.Author.ID)}}
+{{end}}
