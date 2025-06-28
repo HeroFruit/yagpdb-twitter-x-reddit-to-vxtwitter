@@ -9,5 +9,5 @@ Trigger: .*[^fvx]twitter.com.* */}}
   {{deleteTrigger 1}}
   {{$sentID := sendMessageRetID nil (print "<@" .Message.Author.ID "> posted: " $originalContent)}}
   {{dbSet $sentID "op" (joinStr "" .Message.Author.ID)}}
-  {{ dbSetExpire $sentID "op" "true" 60 }}
+  {{ dbSetExpire $sentID "op" .Message.Author.ID 60 }}
 {{end}}
