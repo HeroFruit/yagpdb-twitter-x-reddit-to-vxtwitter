@@ -8,6 +8,5 @@ Trigger: .*[^fvx]x.com.* */}}
 {{if $url}}
   {{deleteTrigger 1}}
   {{$sentID := sendMessageRetID nil (print "<@" .Message.Author.ID "> posted: " $originalContent)}}
-  {{dbSet $sentID "op" (joinStr "" .Message.Author.ID)}}
-  {{ dbSetExpire $sentID "op" .Message.Author.ID 60 }}
+  {{dbSetExpire $sentID "op" (joinStr "" .Message.Author.ID) 600 }}
 {{end}}
